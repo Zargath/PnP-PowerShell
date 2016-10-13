@@ -3,14 +3,20 @@
 <?define AssemblyVersion = "16.1.0.0" ?>
 <?define ProductName = "SharePoint PnP PowerShell Commands" ?>
 <?define ProductAssemblyName = "SharePointPnP.PowerShell.Online.Commands" ?>
+<?define PS1xmlFileName = "SharePointPnP.PowerShell.Online.Commands.Format.ps1xml" ?>
+<?define PSD1FileName = "SharePointPnPPowerShellOnline" ?>
 <?elseif $(var.SharePointPnP.PowerShell.Commands.Configuration) = Release16 OR $(var.SharePointPnP.PowerShell.Commands.Configuration) = Debug16 ?>
 <?define AssemblyVersion = "16.0.0.0" ?>
 <?define ProductName = "SharePoint PnP PowerShell Commands for SP2016" ?>
 <?define ProductAssemblyName = "SharePointPnP.PowerShell.SP2016.Commands" ?>
+<?define PS1xmlFileName = "SharePointPnP.PowerShell.2016.Commands.Format.ps1xml" ?>
+<?define PSD1FileName = "SharePointPnPPowerShell2016" ?>
 <?else ?>
 <?define AssemblyVersion = "15.0.0.0" ?>
 <?define ProductName = "sharePoint PnP PowerShell Commands for SP2013" ?>
 <?define ProductAssemblyName = "SharePointPnP.PowerShell.SP2013.Commands" ?>
+<?define PS1xmlFileName = "SharePointPnP.PowerShell.2013.Commands.Format.ps1xml" ?>
+<?define PSD1FileName = "SharePointPnPPowerShell2013" ?>
 <?endif ?>
 <!--                                                   -->
 <!--                                                   -->
@@ -63,9 +69,9 @@
 
   <Fragment>
     <Directory Id="TARGETDIR" Name="SourceDir">
-      <Directory Id="APPLICATIONFOLDER" Name="$(var.ProductAssemblyName)" >
+      <Directory Id="APPLICATIONFOLDER" Name="$(var.PSD1FileName)" >
         <Directory Id="Modules2" Name="Modules">
-          <Directory Id="MODULEFOLDER" Name="$(var.ProductAssemblyName)"></Directory>
+          <Directory Id="MODULEFOLDER" Name="$(var.PSD1FileName)"></Directory>
         </Directory>
       </Directory>
     </Directory>
@@ -74,7 +80,7 @@
     <WixVariable Id="WixUIDialogBmp" Value="officedevpnp.bmp"/>
     <WixVariable Id="WixUIBannerBmp" Value="setupbanner.png"/>
 
-    <Property Id="ApplicationFolderName" Value="$(var.ProductAssemblyName)" />
+    <Property Id="ApplicationFolderName" Value="$(var.PSD1FileName)" />
     <Property Id="WixAppFolder" Value="WixPerMachineFolder" />
 
     <UIRef Id="WixUI_Advanced" />
@@ -86,10 +92,10 @@
       <Component Id="PowerShellCommands" Guid="{1F5CA574-E185-49D2-9A91-CD46A8548D3E}">
         <File Id="Commands" Source="$(var.SharePointPnP.PowerShell.Commands.TargetPath)" />
         <File Id="CommandsHelp" Source="$(var.SharePointPnP.PowerShell.Commands.TargetPath)-help.xml"/>
-        <File Id="Core" Source="$(var.SharePointPnP.PowerShell.Commands.ProjectDir)bin\$(var.SharePointPnP.PowerShell.Commands.Configuration)\OfficePnP.Core.dll"/>
+        <File Id="Core" Source="$(var.SharePointPnP.PowerShell.Commands.ProjectDir)bin\$(var.SharePointPnP.PowerShell.Commands.Configuration)\OfficeDevPnP.Core.dll"/>
         <File Id="CmdletHelpAttributes" Source="$(var.SharePointPnP.PowerShell.CmdletHelpAttributes.TargetPath)"/>
-        <File Id="FormatFile" Source="$(var.SharePointPnP.PowerShell.Commands.ProjectDir)bin\$(var.SharePointPnP.PowerShell.Commands.Configuration)\ModuleFiles\$(var.ProductAssemblyName).Format.ps1xml" />
-        <File Id="PSD1File" Source="$(var.SharePointPnP.PowerShell.Commands.ProjectDir)bin\$(var.SharePointPnP.PowerShell.Commands.Configuration)\ModuleFiles\$(var.ProductAssemblyName).psd1" />
+        <File Id="FormatFile" Source="$(var.SharePointPnP.PowerShell.Commands.ProjectDir)bin\$(var.SharePointPnP.PowerShell.Commands.Configuration)\ModuleFiles\$(var.PS1xmlFileName)" />
+        <File Id="PSD1File" Source="$(var.SharePointPnP.PowerShell.Commands.ProjectDir)bin\$(var.SharePointPnP.PowerShell.Commands.Configuration)\ModuleFiles\$(var.PSD1FileName).psd1" />
         <File Id="ClientSDK.Client" Source="$(var.SharePointPnP.PowerShell.Commands.ProjectDir)bin\$(var.SharePointPnP.PowerShell.Commands.Configuration)\Microsoft.SharePoint.Client.dll" />
         <File Id="ClientSDK.Client.Runtime" Source="$(var.SharePointPnP.PowerShell.Commands.ProjectDir)bin\$(var.SharePointPnP.PowerShell.Commands.Configuration)\Microsoft.SharePoint.Client.Runtime.dll" />
         <File Id="ClientSDK.Client.Taxonomy" Source="$(var.SharePointPnP.PowerShell.Commands.ProjectDir)bin\$(var.SharePointPnP.PowerShell.Commands.Configuration)\Microsoft.SharePoint.Client.Taxonomy.dll" />
